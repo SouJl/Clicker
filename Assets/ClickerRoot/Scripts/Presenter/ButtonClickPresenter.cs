@@ -29,8 +29,7 @@ namespace ClickerRoot.Scripts.Presenter
         private void OnButtonClick()
         {
             var score = ServiceLocator.Current.Get<IScore>();
-
-            EventBus.Instance?.Invoke(new ScoreChangeSignal(score.CurrentScore + _currentClickValue));
+            score.IncreaseScore(_currentClickValue);
         }
 
         private void UpgradeClickValue(UpgradeClickValueSignal upgrade)

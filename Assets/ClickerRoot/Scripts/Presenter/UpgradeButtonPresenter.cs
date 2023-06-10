@@ -39,11 +39,9 @@ namespace ClickerRoot.Scripts.Presenter
             {
                 EventBus.Instance?.Invoke(new UpgradeClickValueSignal(_currentUpgradeValue));
 
-                EventBus.Instance?.Invoke(new ScoreChangeSignal(score.CurrentScore - _currentUpgradeValue));
+                score.DecreaseScore(_currentUpgradeValue);
 
                 UpdateCostValue(_currentUpgradeValue * 2);
-
-                CheckButtonOnEnable();
             }        
         }
 
@@ -51,6 +49,8 @@ namespace ClickerRoot.Scripts.Presenter
         {
             _costText.text = newCost.ToString();
             _currentUpgradeValue = newCost;
+
+            CheckButtonOnEnable();
         }
 
         private void CheckButtonOnEnable()

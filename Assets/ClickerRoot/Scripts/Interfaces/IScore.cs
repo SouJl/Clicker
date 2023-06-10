@@ -6,6 +6,7 @@ namespace ClickerRoot.Scripts.Interfaces
     {
         int CurrentScore { get; }
 
-        void ChangeScore(int amount);
+        void IncreaseScore(int amount);
+        void DecreaseScore(int amount);
     }
 }

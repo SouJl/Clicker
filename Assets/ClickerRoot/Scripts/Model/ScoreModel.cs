@@ -1,4 +1,6 @@
 ﻿using ClickerRoot.Scripts.Interfaces;
+using ClickerRoot.Scripts.Utils.EventBus;
+using ClickerRoot.Scripts.Utils.Signals;
 
 namespace ClickerRoot.Scripts.Model
 {
@@ -25,9 +27,21 @@ namespace ClickerRoot.Scripts.Model
         public ScoreModel() { }
 
 
-        public void ChangeScore(int amount)
+        public void IncreaseScore(int amount)
         {
-            CurrentScore = amount;
+            CurrentScore += amount;
+            ScoreChanged();
+        }
+
+        public void DecreaseScore(int amount)
+        {
+            CurrentScore -= amount;
+            ScoreChanged();
+        }
+
+        private void ScoreChanged()
+        {
+            EventBus.Instance?.Invoke<ScoreChangeSignal>(new ScoreChangeSignal(CurrentScore));
         }
     }
 }
