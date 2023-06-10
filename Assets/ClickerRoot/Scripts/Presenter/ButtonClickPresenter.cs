@@ -1,4 +1,7 @@
-using ClickerRoot.Scripts.Utils;
+using ClickerRoot.Scripts.Interfaces;
+using ClickerRoot.Scripts.Utils.EventBus;
+using ClickerRoot.Scripts.Utils.ServiceLocator;
+using ClickerRoot.Scripts.Utils.Signals;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +28,9 @@ namespace ClickerRoot.Scripts.Presenter
 
         private void OnButtonClick()
         {
-            EventBus.Instance?.Invoke(new ScoreChangeSignal(_currentClickValue));
+            var score = ServiceLocator.Current.Get<IScore>();
+
+            EventBus.Instance?.Invoke(new ScoreChangeSignal(score.CurrentScore + _currentClickValue));
         }
 
         private void UpgradeClickValue(UpgradeClickValueSignal upgrade)

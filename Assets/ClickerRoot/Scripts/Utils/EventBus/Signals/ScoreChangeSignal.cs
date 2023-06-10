@@ -1,4 +1,4 @@
-﻿namespace ClickerRoot.Scripts.Utils
+﻿namespace ClickerRoot.Scripts.Utils.Signals
 {
     public class ScoreChangeSignal : AbstractSignal<int>
     {

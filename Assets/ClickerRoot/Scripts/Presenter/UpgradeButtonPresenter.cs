@@ -1,7 +1,10 @@
-﻿using ClickerRoot.Scripts.Utils;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using ClickerRoot.Scripts.Utils.EventBus;
+using ClickerRoot.Scripts.Utils.Signals;
+using ClickerRoot.Scripts.Utils.ServiceLocator;
+using ClickerRoot.Scripts.Interfaces;
 
 namespace ClickerRoot.Scripts.Presenter
 {
@@ -14,26 +17,46 @@ namespace ClickerRoot.Scripts.Presenter
 
         private int _currentUpgradeValue;
 
-
-        private void Awake()
+        private void Start()
         {
             _upgradeButton.onClick.AddListener(OnUpgradeClick);
             _labelText.text = "Upgrade Click!";
             UpdateCostValue(_initialCost);
+
+            EventBus.Instance.Subscrive<ScoreChangeSignal>(_ =>
+            {
+                CheckButtonOnEnable();
+            });
+            CheckButtonOnEnable();
         }
+
 
         private void OnUpgradeClick()
         {
-            EventBus.Instance?.Invoke(new UpgradeClickValueSignal(_currentUpgradeValue));
-            EventBus.Instance?.Invoke(new ScoreChangeSignal(-_currentUpgradeValue));
+            var score = ServiceLocator.Current.Get<IScore>();
 
-            UpdateCostValue(_currentUpgradeValue * 2);
+            if((score.CurrentScore - _currentUpgradeValue) >= 0) 
+            {
+                EventBus.Instance?.Invoke(new UpgradeClickValueSignal(_currentUpgradeValue));
+
+                EventBus.Instance?.Invoke(new ScoreChangeSignal(score.CurrentScore - _currentUpgradeValue));
+
+                UpdateCostValue(_currentUpgradeValue * 2);
+
+                CheckButtonOnEnable();
+            }        
         }
 
         private void UpdateCostValue(int newCost)
         {
             _costText.text = newCost.ToString();
             _currentUpgradeValue = newCost;
+        }
+
+        private void CheckButtonOnEnable()
+        {
+            var score = ServiceLocator.Current.Get<IScore>();
+            _upgradeButton.interactable = (score.CurrentScore - _currentUpgradeValue) >= 0;
         }
     }
 }

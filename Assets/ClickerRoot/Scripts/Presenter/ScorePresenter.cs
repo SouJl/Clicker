@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using TMPro;
-using ClickerRoot.Scripts.Utils;
+using ClickerRoot.Scripts.Utils.EventBus;
+using ClickerRoot.Scripts.Utils.Signals;
+using System;
+using ClickerRoot.Scripts.Interfaces;
+using ClickerRoot.Scripts.Utils.ServiceLocator;
 
 namespace ClickerRoot.Scripts.Presenter
 {
@@ -8,18 +12,22 @@ namespace ClickerRoot.Scripts.Presenter
     {
         [SerializeField] private TMP_Text _scoreText;
 
-        private int _currentScore;
+        private IScore _scoreModel;
 
         private void Start()
         {
-            _currentScore = 0;
+            _scoreModel 
+                = ServiceLocator.Current.Get<IScore>() 
+                ?? throw new ArgumentNullException(nameof(IScore));
+
             EventBus.Instance.Subscrive<ScoreChangeSignal>(ChangeScore);
         }
 
         private void ChangeScore(ScoreChangeSignal score)
         {
-            _currentScore += score.Value;
-            _scoreText.text = $"Score : {_currentScore}";
+            _scoreModel.ChangeScore(score.Value);
+
+            _scoreText.text = $"Score : {_scoreModel.CurrentScore}";
         }
     }
 }

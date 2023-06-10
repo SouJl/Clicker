@@ -1,4 +1,4 @@
-﻿namespace ClickerRoot.Scripts.Utils
+﻿namespace ClickerRoot.Scripts.Utils.Signals
 {
     public interface ISignal<T>
     {

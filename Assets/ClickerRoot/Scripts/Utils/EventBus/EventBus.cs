@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ClickerRoot.Scripts.Utils
+namespace ClickerRoot.Scripts.Utils.EventBus
 {
     public class EventBus : MonoBehaviour
     {
