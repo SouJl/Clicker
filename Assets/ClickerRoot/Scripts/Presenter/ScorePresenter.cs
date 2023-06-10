@@ -2,7 +2,7 @@
 using TMPro;
 using ClickerRoot.Scripts.Utils;
 
-namespace ClickerRoot.Scripts
+namespace ClickerRoot.Scripts.Presenter
 {
     public  class ScorePresenter : MonoBehaviour
     {
@@ -13,13 +13,13 @@ namespace ClickerRoot.Scripts
         private void Start()
         {
             _currentScore = 0;
-            EventBus.Instance.Subscrive<ScoreChangeEvent>(ChangeScore);
+            EventBus.Instance.Subscrive<ScoreChangeSignal>(ChangeScore);
         }
 
-        private void ChangeScore(ScoreChangeEvent score)
+        private void ChangeScore(ScoreChangeSignal score)
         {
             _currentScore += score.Value;
-            _scoreText.text = $"Clicks : {_currentScore}";
+            _scoreText.text = $"Score : {_currentScore}";
         }
     }
 }
