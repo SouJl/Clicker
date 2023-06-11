@@ -39,6 +39,7 @@ namespace ClickerRoot.Scripts.Presenter
             if((score.CurrentScore - _currentUpgradeValue) >= 0) 
             {
                 EventBus.Instance?.Invoke(new UpgradeClickValueSignal(_currentUpgradeValue));
+                EventBus.Instance?.Invoke(new ChangeLevelSignal(ItemType.ClickLevel));
 
                 score.DecreaseScore(_currentUpgradeValue);
 
