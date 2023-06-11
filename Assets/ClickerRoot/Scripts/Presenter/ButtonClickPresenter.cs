@@ -12,12 +12,12 @@ namespace ClickerRoot.Scripts.Presenter
         [SerializeField] private Button _clickButton;
         [SerializeField] private int _initialClickValue = 1;
 
-        private int _currentClickValue;
+        private ulong _currentClickValue;
 
         private void Awake()
         {
             _clickButton.onClick.AddListener(OnButtonClick);
-            _currentClickValue = _initialClickValue;
+            _currentClickValue = (ulong)_initialClickValue;
         }
 
         private void Start()

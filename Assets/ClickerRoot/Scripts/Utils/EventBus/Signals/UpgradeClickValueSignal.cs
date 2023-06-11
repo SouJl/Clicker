@@ -1,8 +1,8 @@
 ﻿namespace ClickerRoot.Scripts.Utils.Signals
 {
-    public class UpgradeClickValueSignal : AbstractSignal<int>
+    public class UpgradeClickValueSignal : AbstractSignal<ulong>
     {
-        public UpgradeClickValueSignal(int value) : base(value)
+        public UpgradeClickValueSignal(ulong value) : base(value)
         {
         }
     }

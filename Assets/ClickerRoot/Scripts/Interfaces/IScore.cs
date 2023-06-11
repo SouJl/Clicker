@@ -4,9 +4,9 @@ namespace ClickerRoot.Scripts.Interfaces
 {
     public interface IScore : IService
     {
-        int CurrentScore { get; }
+        ulong CurrentScore { get; }
 
-        void IncreaseScore(int amount);
-        void DecreaseScore(int amount);
+        void IncreaseScore(ulong amount);
+        void DecreaseScore(ulong amount);
     }
 }

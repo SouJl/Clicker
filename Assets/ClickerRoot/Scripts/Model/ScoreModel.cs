@@ -6,9 +6,9 @@ namespace ClickerRoot.Scripts.Model
 {
     public class ScoreModel : IScore
     {
-        private  int _currentScore = 0;
+        private ulong _currentScore = 0;
 
-        public int CurrentScore 
+        public ulong CurrentScore 
         {
             get => _currentScore;
             private set 
@@ -27,13 +27,13 @@ namespace ClickerRoot.Scripts.Model
         public ScoreModel() { }
 
 
-        public void IncreaseScore(int amount)
+        public void IncreaseScore(ulong amount)
         {
             CurrentScore += amount;
             ScoreChanged();
         }
 
-        public void DecreaseScore(int amount)
+        public void DecreaseScore(ulong amount)
         {
             CurrentScore -= amount;
             ScoreChanged();
