@@ -3,6 +3,7 @@ using TMPro;
 using ClickerRoot.Scripts.Utils.EventBus;
 using ClickerRoot.Scripts.Utils.Signals;
 using System;
+using ClickerRoot.Scripts.Utils;
 
 namespace ClickerRoot.Scripts.Presenter
 {
@@ -24,13 +25,13 @@ namespace ClickerRoot.Scripts.Presenter
         private string TextFormat(ulong score)
         {
             if (score < 0) return "0";
-            if (score >= 1000000000000000) return "1P";
+            if (score >= Const.Quadrillion) return "1P";
 
-            if (score < 10000) return score.ToString();
-            if (score >= 10000 && score < 1000000) return $"{(int)(score / 1000)}K";
-            if (score >= 1000000 && score < 1000000000) return $"{(int)(score / 1000000)}M";
-            if (score >= 1000000000 && score < 1000000000000) return $"{(int)(score / 1000000000)}G";
-            if (score >= 1000000000000 && score < 1000000000000000) return $"{(int)(score / 1000000000000)}T";
+            if (score < 10 * Const.Thousand) return score.ToString();
+            if (score >= 10 * Const.Thousand && score < Const.Million) return $"{(int)(score / Const.Thousand)}K";
+            if (score >= Const.Million && score < Const.Billion) return $"{(int)(score / Const.Million)}M";
+            if (score >= Const.Billion && score < Const.Trillion) return $"{(int)(score / Const.Billion)}G";
+            if (score >= Const.Trillion && score < Const.Quadrillion) return $"{(int)(score / Const.Trillion)}T";
 
             throw new ArgumentOutOfRangeException(nameof(score));
         }

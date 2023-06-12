@@ -1212,6 +1212,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1131222034}
     m_Modifications:
+    - target: {fileID: 4647925618405179067, guid: 4deb0a5b7912e5746bd9f0fe815849d2, type: 3}
+      propertyPath: _maxValue
+      value: 1000000000
+      objectReference: {fileID: 0}
     - target: {fileID: 5244052321239615548, guid: 4deb0a5b7912e5746bd9f0fe815849d2, type: 3}
       propertyPath: m_Name
       value: UpgradeButton
