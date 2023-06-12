@@ -10,14 +10,16 @@ namespace ClickerRoot.Scripts.Presenter
     public class ButtonClickPresenter : MonoBehaviour
     {
         [SerializeField] private Button _clickButton;
-        [SerializeField] private int _initialClickValue = 1;
+        [SerializeField] private int _clickPower = 1;
 
-        private ulong _currentClickValue;
+        [SerializeField] private PlusValuePresenter _plusValue;
+
+        private ulong _currentClickPower;
 
         private void Awake()
         {
             _clickButton.onClick.AddListener(OnButtonClick);
-            _currentClickValue = (ulong)_initialClickValue;
+            _currentClickPower = (ulong)_clickPower;
         }
 
         private void Start()
@@ -29,12 +31,15 @@ namespace ClickerRoot.Scripts.Presenter
         private void OnButtonClick()
         {
             var score = ServiceLocator.Current.Get<IScore>();
-            score.IncreaseScore(_currentClickValue);
+            
+            score.IncreaseScore(_currentClickPower);
+
+            _plusValue.SetPlusValue((int)_currentClickPower);
         }
 
         private void UpgradeClickValue(UpgradeClickValueSignal upgrade)
         {
-            _currentClickValue += upgrade.Value;
+            _currentClickPower += upgrade.Value;
         }
 
     }
